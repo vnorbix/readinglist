@@ -1,7 +1,9 @@
 # Project for "GraphQL Full Course - Novice to Expert"
 
 Completed source for example project at:
+
 https://github.com/iamshaunjp/graphql-playlist
+
 https://www.youtube.com/watch?v=ed8SzALpx1Q
 
 ## Prerequisites
