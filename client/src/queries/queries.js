@@ -46,4 +46,13 @@ const ADD_BOOK = gql`
   }
 `;
 
-export { GET_AUTHORS, GET_BOOKS, GET_BOOK, ADD_BOOK }
+const BOOKS_SUBSCRIPTION = gql`
+  subscription OnBookAdded {
+    bookAdded {
+      id
+      name
+    }
+  }
+`;
+
+export { GET_AUTHORS, GET_BOOKS, GET_BOOK, ADD_BOOK, BOOKS_SUBSCRIPTION }

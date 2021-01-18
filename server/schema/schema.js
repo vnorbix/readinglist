@@ -1,6 +1,9 @@
 const Book = require('../model/book');
 const Author = require('../model/author');
-const { gql } = require('apollo-server-express');
+const { gql, PubSub } = require('apollo-server-express');
+
+const pubsub = new PubSub();
+const BOOK_ADDED = 'BOOK_ADDED';
 
 const typeDefs = gql`
   type Query {
@@ -13,6 +16,10 @@ const typeDefs = gql`
   type Mutation {
     addBook(name: String, genre: String, authorId: String): Book
     addAuthor(name: String, age: Int): Author
+  }
+
+  type Subscription {
+    bookAdded: Book
   }
 
   type Book {
@@ -50,6 +57,7 @@ const resolvers = {
           genre: args.genre,
           authorId: args.authorId
       });
+      pubsub.publish(BOOK_ADDED, { bookAdded: args });
       return book.save();
     },
     addAuthor(parent, args, context, info) {
@@ -59,6 +67,11 @@ const resolvers = {
       });
       return author.save();
     },
+  },
+  Subscription: {
+    bookAdded: {
+      subscribe: () => pubsub.asyncIterator([BOOK_ADDED])
+    }
   },
   Book: {
     author(parent, args, context, info) {

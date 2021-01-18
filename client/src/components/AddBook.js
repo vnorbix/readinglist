@@ -12,7 +12,7 @@ function Addbook() {
   const [authorIdFieldClassName, setAuthorIdFieldClassName] = useState('field');
   const { error: authorsError, loading: authorsLoading, data: authorsData } = useQuery(GET_AUTHORS);
   const [addBook] = useMutation(ADD_BOOK, {
-    refetchQueries: [{query: GET_BOOKS}]
+    //refetchQueries: [{query: GET_BOOKS}]
     // Something like would also work, then no extra fetch from server
     // update(cache, { data: { addTodo } }) {
     //   cache.modify({
